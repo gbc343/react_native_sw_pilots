@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     SafeAreaView, 
     Text,
-    useColorScheme,
+    StyleSheet,
     View,
     TextInput,
     Button} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmail, setPassword } from '../../../redux/actions'
-import { USER_LOGGED_IN } from '../../../redux/actions'
+import { USER_LOGGED_IN , getPeople, getships} from '../../../redux/actions'
 
 const LoginPage = ({navigation}) => {
 
@@ -20,6 +20,8 @@ const LoginPage = ({navigation}) => {
     const userData = () => {
         if (email != '' && password != '' || isLogged != false){
             dispatch(USER_LOGGED_IN())
+            dispatch(getPeople())
+            dispatch(getships())
             return  navigation.navigate('Pilots')
         }
         else return  navigation.navigate('Login')
@@ -29,9 +31,9 @@ const LoginPage = ({navigation}) => {
     return (
         <SafeAreaView>
             <View>
-                <Text>Please input email and Password</Text>
-                <TextInput label="Email" onChangeText={(value) => dispatch(setEmail(value)) }></TextInput>
-                <TextInput label="Password" onChangeText={(value) => dispatch(setPassword(value)) }></TextInput>
+                <Text style={styles.titleText}>Please input email and Password</Text>
+                <TextInput label="Email" style={styles.input} onChangeText={(value) => dispatch(setEmail(value)) }></TextInput>
+                <TextInput label="Password" style={styles.input} onChangeText={(value) => dispatch(setPassword(value)) }></TextInput>
                 <Button title='Login' onPress={() => userData()}/>
                 <Button title='guest'/>
             </View>
@@ -40,6 +42,19 @@ const LoginPage = ({navigation}) => {
 
 
 }
+
+const styles = StyleSheet.create({
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold"
+  }
+});
 
 export default LoginPage;
 

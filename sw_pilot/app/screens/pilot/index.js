@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     SafeAreaView, 
     Text,
@@ -6,19 +6,28 @@ import {
     View,
     TextInput,
     Button} from 'react-native'
+import { getPeople } from '../../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { FlatList } from 'react-native-gesture-handler'
 
 
-const PilotPage = () => {
+function PilotPage  () {
+    const {pilots,ships}  = useSelector(state => state.sw_pilots);
+    const dispatch = useDispatch;
 
-
+   console.log(pilots)
     return (
+        
         <SafeAreaView>
-            <View>
-                <Text>Pilot Page</Text>
-                <TextInput label="Email" keyboardType='email-address'></TextInput>
-                <TextInput label="Password" secureTextEntry={true}></TextInput>
-             
-            </View>
+           <FlatList
+                data={pilots}
+                renderItem={(item) => (
+                    <View>
+                        <Text>{item.results.name}</Text>
+                    </View>
+                )}
+           
+           />
         </SafeAreaView>
     )
 

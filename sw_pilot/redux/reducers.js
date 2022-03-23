@@ -1,10 +1,15 @@
 import { State } from "react-native-gesture-handler";
 import { SET_USER_EMAIL, SET_USER_PASSWORD, REMOVE_USER_EMAIL, REMOVE_USER_PASSWORD
-, USER_LOGGED_IN, USER_LOGGED_OUT } from "./actions";
+, USER_LOGGED_IN, USER_LOGGED_OUT, GET_PEOPLE, GET_STARSHIPS } from "./actions";
 
 const initialState = {
     email: '',
     password: '',
+}
+
+const swInfo = {
+    pilots: [],
+    ships: [],
 }
 
 export const userReducer = (state=initialState, action) => {
@@ -32,5 +37,16 @@ export const isLogged = (state=false, action) => {
             return state;
     };
 };
+
+export const sw_pilots = (state=swInfo, action) => {
+    switch(action.type) {
+        case GET_PEOPLE:
+            return {...state, pilots: action.payload};
+        case GET_STARSHIPS:
+            return {...state, ships: action.payload};
+        default:
+            return state;
+    }
+}
 
 

@@ -48,9 +48,11 @@ export const setPassword = password => dispatch =>{
     })
 };
 
-export const GET_PEOPLES = () => {
+
+
+export const GET_PEOPLE = () => {
     return {
-        type:'GET_PEOPLES'
+        type:'GET_PEOPLE'
     }
 }
 
@@ -68,9 +70,47 @@ export const getPeople = () => {
             const json = await result.json();
             if (json) {
                 dispatch({
-                    type: GET_PEOPLES,
+                    type: GET_PEOPLE,
                     payload
                 })
+            } else{
+                console.log('Fetch unsuccessful');
+            }
+
+
+        }
+        
+    } catch (error) {
+        
+    }
+}
+
+export const GET_STARSHIPS = () => {
+    return {
+        type:'GET_STARSHIPS'
+    }
+}
+
+
+const API_URL_SHIPS ='https://swapi.dev/api/starships/';
+
+export const getships = () => {
+    try {
+        return async dispatch => {
+            const result = await fetch(API_URL_SHIPS, {
+                method: 'Get',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            const json = await result.json();
+            if (json) {
+                dispatch({
+                    type: GET_PEOPLE,
+                    payload
+                })
+            } else{
+                console.log('Fetch unsuccessful');
             }
 
 
